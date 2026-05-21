@@ -571,7 +571,7 @@ MonoBehaviour:
   tiempoMinimo: 0.2
   incrementoDificultad: 0.05
   velocidadMeteorito: 6
-  incrementoVelocidad: 0.1
+  incrementoVelocidad: 0.05
   spawnMinY: -4
   spawnMaxY: 4
   separacionMinimaY: 4
@@ -579,6 +579,8 @@ MonoBehaviour:
   powerUpEscudoPrefab: {fileID: 5745628422041649901, guid: 99cfdcb1985d0b54998a3cff4800c0db, type: 3}
   powerUpTeleportePrefab: {fileID: 3884283927981024002, guid: a3410e9f1bdfa214dbf8bb317e660c9e, type: 3}
   tiempoEntrePowerUp: 15
+  ondaSolarPrefab: {fileID: 5046958333699380764, guid: 908f67820afc4664fab40b3a8281aad9, type: 3}
+  tiempoEntreOndaSolar: 25
 --- !u!4 &168789238
 Transform:
   m_ObjectHideFlags: 0
@@ -2285,6 +2287,8 @@ MonoBehaviour:
   panelEscudoHUD: {fileID: 948314884}
   barraEscudo: {fileID: 805500060}
   iconoTeleporteHUD: {fileID: 1085211757}
+  waveEffectDuration: 3
+  iconoOndaSolarHUD: {fileID: 0}
 --- !u!95 &1230725464
 Animator:
   serializedVersion: 7

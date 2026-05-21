@@ -104,8 +104,7 @@ public class SpawnManager : MonoBehaviour
     void SpawnearOndaSolar()
     {
         if (ondaSolarPrefab == null) return;
-        float y = Random.Range(spawnMinY, spawnMaxY);
-        Instantiate(ondaSolarPrefab, new Vector3(12f, y, 0f), Quaternion.identity);
+        Instantiate(ondaSolarPrefab, new Vector3(12f, 0f, 0f), Quaternion.identity);
     }
     // ────────────────────────────────────────────
 }
