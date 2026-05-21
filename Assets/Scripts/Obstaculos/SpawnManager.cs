@@ -22,6 +22,13 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float tiempoEntrePowerUp = 5f;
     private float timerPowerUp;
 
+    // ── Onda Solar ──────────────────────────────
+    [Header("Onda Solar")]
+    [SerializeField] private GameObject ondaSolarPrefab;
+    [SerializeField] private float tiempoEntreOndaSolar = 15f;
+    private float timerOndaSolar;
+    // ────────────────────────────────────────────
+
     private float timer;
 
     void Update()
@@ -29,6 +36,7 @@ public class SpawnManager : MonoBehaviour
         tiempoJuego += Time.deltaTime;
         timer += Time.deltaTime;
         timerPowerUp += Time.deltaTime;
+        timerOndaSolar += Time.deltaTime; // ── Onda Solar
 
         if (timer >= tiempoEntreSpawn)
         {
@@ -47,6 +55,14 @@ public class SpawnManager : MonoBehaviour
             SpawnearPowerUp();
             timerPowerUp = 0f;
         }
+
+        // ── Onda Solar ──────────────────────────────
+        if (timerOndaSolar >= tiempoEntreOndaSolar)
+        {
+            SpawnearOndaSolar();
+            timerOndaSolar = 0f;
+        }
+        // ────────────────────────────────────────────
     }
 
     public void PararSpawn()
@@ -58,7 +74,7 @@ public class SpawnManager : MonoBehaviour
     {
         float y;
         int intentos = 0;
-        separacionMinimaY =  Random.Range(0, 5);
+        separacionMinimaY = Random.Range(0, 5);
 
         do
         {
@@ -83,4 +99,13 @@ public class SpawnManager : MonoBehaviour
         else
             Instantiate(powerUpTeleportePrefab, pos, Quaternion.identity);
     }
+
+    // ── Onda Solar ──────────────────────────────
+    void SpawnearOndaSolar()
+    {
+        if (ondaSolarPrefab == null) return;
+        float y = Random.Range(spawnMinY, spawnMaxY);
+        Instantiate(ondaSolarPrefab, new Vector3(12f, y, 0f), Quaternion.identity);
+    }
+    // ────────────────────────────────────────────
 }

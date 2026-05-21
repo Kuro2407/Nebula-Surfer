@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,12 @@ public class PlayerMovement : MonoBehaviour
     private bool tieneTeleporte;
     [SerializeField] private GameObject iconoTeleporteHUD;
 
+    [Header("OndaSolar")]
+    public float waveEffectDuration = 5f;
+    private bool controlesInvertidos;
+    private float timerOndaSolar;
+    [SerializeField] private GameObject iconoOndaSolarHUD; // opcional
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,12 +43,31 @@ public class PlayerMovement : MonoBehaviour
         if (panelEscudoHUD) panelEscudoHUD.SetActive(false);
         if (barraEscudo) barraEscudo.gameObject.SetActive(false);
         if (iconoTeleporteHUD) iconoTeleporteHUD.SetActive(false);
+        if (iconoOndaSolarHUD) iconoOndaSolarHUD.SetActive(false);
     }
 
     void Update()
     {
-        input.x = Input.GetAxisRaw("Horizontal");
-        input.y = Input.GetAxisRaw("Vertical");
+        float inputX = Input.GetAxisRaw("Horizontal");
+        float inputY = Input.GetAxisRaw("Vertical");
+
+        // ── Onda Solar ──────────────────────────────
+        if (controlesInvertidos)
+        {
+            timerOndaSolar -= Time.deltaTime;
+            inputX = -inputX;
+            inputY = -inputY;
+
+            if (timerOndaSolar <= 0f)
+            {
+                controlesInvertidos = false;
+                if (iconoOndaSolarHUD) iconoOndaSolarHUD.SetActive(false);
+            }
+        }
+
+        input.x = inputX;
+        input.y = inputY;
+        // ────────────────────────────────────────────
 
         float targetRotation = -input.x * 20f;
         transform.rotation = Quaternion.Lerp(
@@ -72,6 +98,15 @@ public class PlayerMovement : MonoBehaviour
         newPos.y = Mathf.Clamp(newPos.y, limiteMin.y, limiteMax.y);
         rb.MovePosition(newPos);
     }
+
+    // ── Llamado desde SolarWave.cs ───────────────
+    public void SolarWave()
+    {
+        controlesInvertidos = true;
+        timerOndaSolar = waveEffectDuration;
+        if (iconoOndaSolarHUD) iconoOndaSolarHUD.SetActive(true);
+    }
+    // ─────────────────────────────────────────────
 
     void ActualizarCorazones()
     {
