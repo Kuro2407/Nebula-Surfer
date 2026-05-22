@@ -30,7 +30,7 @@ public class SolarWave : MonoBehaviour
             {
                 player.SolarWave();
             }
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }
